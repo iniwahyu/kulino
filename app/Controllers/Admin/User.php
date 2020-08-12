@@ -18,7 +18,7 @@ class User extends BaseController
 
 	public function index()
 	{
-        $user          = $this->users->getUsers();
+        $user          = $this->users->getUsers()->getResultArray();
         $data = [
             'title'     => $this->title,
             'web'       => $this->web,

@@ -22,13 +22,13 @@
                     <div class="form-group row mb-3">
                         <label class="col-3 col-form-label">Username (NIS/NPUK)</label>
                         <div class="col-9">
-                            <input type="text" class="form-control" name="username" placeholder="Masukkan Username...">
+                            <input type="text" class="form-control" name="username" placeholder="Masukkan Username..." required>
                         </div>
                     </div>
                     <div class="form-group row mb-3">
                         <label class="col-3 col-form-label">Username (NIS/NPUK)</label>
                         <div class="col-9">
-                            <select class="form-control" name="level">
+                            <select class="form-control" name="level" required>
                                 <option value="">--- Pilih Level ---</option>
                                 <option value="1">Admin</option>
                                 <option value="2">Guru</option>
@@ -39,13 +39,13 @@
                     <div class="form-group row mb-3">
                         <label class="col-3 col-form-label">Password</label>
                         <div class="col-9">
-                            <input type="password" class="form-control" name="password" placeholder="Minimal 3 Karakter">
+                            <input type="password" class="form-control" name="password" placeholder="Minimal 3 Karakter" required>
                         </div>
                     </div>
                     <div class="form-group row mb-3">
                         <label class="col-3 col-form-label">Konfirmasi Password</label>
                         <div class="col-9">
-                            <input type="password" class="form-control" name="sandi" placeholder="Harus Sama dengan Password">
+                            <input type="password" class="form-control" name="sandi" placeholder="Harus Sama dengan Password" required>
                         </div>
                     </div>
                     <!-- Form -->

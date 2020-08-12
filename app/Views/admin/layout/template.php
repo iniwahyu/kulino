@@ -206,11 +206,10 @@
                             </li>
 
                             <li class="menu-title mt-2">Apps</li>
-
                             <li>
-                                <a href="apps-calendar.html">
-                                    <i class="mdi mdi-calendar"></i>
-                                    <span> Calendar </span>
+                                <a href="<?php echo base_url('admin/user'); ?>">
+                                    <i class="fa fa-user"></i>
+                                    <span> User </span>
                                 </a>
                             </li>
                         </ul>

@@ -34,6 +34,14 @@ $routes->get('/', 'Home::index');
 
 /**
  * ----------------
+ * All About Auth
+ * ----------------
+ */
+$routes->get('/login', 'Auth::login');
+
+
+/**
+ * ----------------
  * All About Admin
  * ----------------
  */

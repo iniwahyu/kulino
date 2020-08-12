@@ -16,7 +16,10 @@ class UserModel extends Model
     {
         if($where == false)
         {
-            return $this->findAll();
+            return $this->db->table($this->table)
+                    ->select('users.id, users.username, master_level.nama AS level, users.last_login')
+                    ->join('master_level', 'master_level.id = users.level')
+                    ->get();
         }
         else
         {
