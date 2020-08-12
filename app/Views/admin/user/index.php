@@ -8,15 +8,27 @@
 <?php echo $this->section('content'); ?>
 <div class="row mb-3">
     <div class="col">
+        <div class="mb-3">
+            <a href="<?php echo base_url("$web/create"); ?>" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah Data</a>
+        </div>
+
+        <?php if(session()->get('sukses')): ?>
+        <div class="alert alert-success bg-success text-white border-0" role="alert">
+            <?php echo session()->get('sukses') ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if(session()->get('error')): ?>
+        <div class="alert alert-danger bg-danger text-white border-0" role="alert">
+            <?php echo session()->get('error') ?>
+        </div>
+        <?php endif; ?>
+        
         <div class="card">
             <div class="card-header bg-blue py-3">
                 <h5 class="card-title mb-0 text-white">Data <?php echo $title; ?></h5>
             </div>
             <div class="card-body table-responsive">
-                <div class="mb-3">
-                    <a href="" class="btn btn-primary">Tambah Data</a>
-                    <a href="" class="btn btn-primary">Tambah Data</a>
-                </div>
                 <table class="table dt-responsive nowrap w-100" id="datatable">
                     <thead>
                         <tr>
@@ -28,20 +40,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i=1; foreach($user as $users): ?>
                         <tr>
-                            <td>1</td>
-                            <td>123</td>
-                            <td>Admin</td>
-                            <td>Tadi</td>
+                            <td><?php echo $i++; ?></td>
+                            <td><?php echo $users['username']; ?></td>
+                            <td><?php echo $users['level']; ?></td>
+                            <td><?php echo $users['last_login']; ?></td>
                             <td>
-                                <a href="" class="btn btn-info btn-rounded waves-effect waves-light">
+                                <a href="<?php echo base_url("$web/edit/".$users['id']); ?>" class="btn btn-info btn-rounded waves-effect waves-light">
                                     <span class="btn-label"><i class="fa fa-edit"></i></span> Edit
                                 </a>
-                                <a href="" class="btn btn-danger btn-rounded waves-effect waves-light">
+                                <a href="<?php echo base_url("$web/delete/".$users['id']); ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
                                     <span class="btn-label"><i class="fa fa-trash-alt"></i></span> Hapus
                                 </a>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

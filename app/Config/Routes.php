@@ -39,7 +39,9 @@ $routes->get('/', 'Home::index');
  */
 $routes->get('/admin', 'Admin\Dashboard::index');
 $routes->get('/admin/user', 'Admin\User::index');
-
+$routes->post('/admin/user/store', 'Admin\User::store');
+$routes->get('/admin/user/edit/(:num)', 'Admin\User::edit/$1');
+$routes->post('/admin/user/update', 'Admin\User::update');
 /**
  * --------------------------------------------------------------------
  * Additional Routing
