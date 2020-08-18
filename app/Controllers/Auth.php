@@ -25,6 +25,8 @@ class Auth extends BaseController
 		$username		= $this->request->getVar('username');
 		$password		= $this->request->getVar('password');
 
+		$now			= date('Y-m-d H:i:s');
+
 		$cekUsers		= $this->auth->getUsers(['username' => $username]);
 		// dd($cekUsers->getFirstRow());
 		if($cekUsers->getFirstRow())
@@ -41,6 +43,7 @@ class Auth extends BaseController
 						'isLogged'	=> true,
 					];
 					session()->set($setSession);
+					$update = $this->auth->updateLastLogin($now, $data['id']);
 					return redirect()->to(base_url('admin'));
 				}
 				if($data['level'] == 2)
@@ -52,6 +55,7 @@ class Auth extends BaseController
 						'isLogged'	=> true,
 					];
 					session()->set($setSession);
+					$update = $this->auth->updateLastLogin($now, $data['id']);
 					return redirect()->to(base_url('guru'));
 				}
 				if($data['level'] == 3)
@@ -63,6 +67,7 @@ class Auth extends BaseController
 						'isLogged'	=> true,
 					];
 					session()->set($setSession);
+					$update = $this->auth->updateLastLogin($now, $data['id']);
 					return redirect()->to(base_url('siswa'));
 				}
 			}

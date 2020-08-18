@@ -12,4 +12,9 @@ class AuthModel extends Model
                         ->where($where)
                         ->get();
     }
+
+    public function updateLastLogin($data, $where)
+    {
+        return $this->db->table('users')->update(['last_login' => $data], ['id' => $where]);
+    }
 }

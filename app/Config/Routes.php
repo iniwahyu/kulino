@@ -50,6 +50,21 @@ $routes->get('/admin/user', 'Admin\User::index');
 $routes->post('/admin/user/store', 'Admin\User::store');
 $routes->get('/admin/user/edit/(:num)', 'Admin\User::edit/$1');
 $routes->post('/admin/user/update', 'Admin\User::update');
+
+/**
+ * ----------------
+ * All About Guru
+ * ----------------
+ */
+$routes->get('/guru', 'Guru\Dashboard::index');
+$routes->get('/guru/forum', 'Guru\Forum::index');
+$routes->get('/guru/forum/create', 'Guru\Forum::create');
+$routes->post('/guru/forum/store', 'Guru\Forum::store');
+$routes->get('/guru/forum/detail/(:any)', 'Guru\Forum::detail/$1');
+
+$routes->get('/guru/fmapel/create/(:any)', 'Guru\Fmapel::create/$1');
+$routes->post('/guru/fmapel/store', 'Guru\Fmapel::store');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing
