@@ -23,10 +23,13 @@ class UserModel extends Model
         }
         else
         {
-            return $this->where([
-                'id'        => $where,
-            ])->first();
+            return $this->find($where);
         }
+    }
+
+    public function allUsers($where)
+    {
+        return $this->where('level', $where)->findAll();
     }
 
     public function insertUsers()

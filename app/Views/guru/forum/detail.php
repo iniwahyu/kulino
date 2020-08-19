@@ -39,7 +39,7 @@
             <div class="card-body">
                 <div class="list-group">
                     <ul class="list-group">
-                        <a href="" class="font-weight-bold text-dark list-group-action">
+                        <a href="<?php echo base_url("guru/forum/diskusi/".$forumDetail['id']) ?>" class="font-weight-bold text-dark list-group-action">
                             <?php foreach($forumMapel as $fm): ?>
                             <li class="list-group-item d-flex">
                                 <b><?php echo $fm['pertemuan'] ?></b>. &nbsp; <?php echo $fm['judul']; ?> 
@@ -53,5 +53,37 @@
             </div>
         </div>
     </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-header d-flex mb-0">
+                <h4 class="card-title mt-1 mb-0">Code</h4>
+            </div>
+            <div class="card-body">
+                <p>Silahkan Bagikan Link dibawah ini kepada para Siswa. Link ini dikhusukan untuk siswa, agar bisa bergabung.</p>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="kode" value="<?php echo base_url("join/".$forumDetail['kode']); ?>" readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-dark waves-effect waves-light" id="copy" type="button"><i class="fa fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <p>Siswa juga bisa memasukkan Kode ini di bagian <b>Menu Forum</b> dengan memasukkan Kode: <b><?php echo $forumDetail['kode']; ?></b></p>
+            </div>
+        </div>
+    </div>
 </div>
 <?php echo $this->endSection('content'); ?>
+
+<?php echo $this->section('js'); ?>
+<script>
+$("#copy").click(function() {
+    var copyText = document.getElementById("kode");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999)
+    document.execCommand("copy");
+    alert("Berhasil Copy");
+});
+</script>
+<?php echo $this->endSection('js'); ?>

@@ -34,7 +34,7 @@ class ForumModel extends Model
     public function forumDetail($idUser)
     {
         return $this->db->table($this->tableAlias)
-                ->select('f.`id`, mm.`nama`, mm.`kelas`, f.`deskripsi`, g.`nama` AS guru')
+                ->select('f.`id`, mm.`nama`, mm.`kelas`, f.`deskripsi`, g.`nama` AS guru, f.kode')
                 ->join('master_mapel AS mm', 'mm.id = f.id_mapel')
                 ->join('guru AS g', 'g.id_user = f.id_guru')
                 ->where('id_user', $idUser)

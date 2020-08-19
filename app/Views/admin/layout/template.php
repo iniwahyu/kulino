@@ -212,6 +212,18 @@
                                     <span> User </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/guru'); ?>">
+                                    <i class="fa fa-user"></i>
+                                    <span> Guru </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/siswa'); ?>">
+                                    <i class="fa fa-user"></i>
+                                    <span> Siswa </span>
+                                </a>
+                            </li>
                         </ul>
 
                     </div>

@@ -51,6 +51,13 @@ $routes->post('/admin/user/store', 'Admin\User::store');
 $routes->get('/admin/user/edit/(:num)', 'Admin\User::edit/$1');
 $routes->post('/admin/user/update', 'Admin\User::update');
 
+$routes->get('/admin/guru', 'Admin\Guru::index');
+$routes->get('/admin/guru/create', 'Admin\Guru::create');
+$routes->post('/admin/guru/store', 'Admin\Guru::store');
+$routes->get('/admin/guru/edit/(:any)', 'Admin\Guru::edit/$1');
+$routes->post('/admin/guru/update', 'Admin\Guru::update');
+$routes->get('/admin/guru/detail/(:any)', 'Admin\Guru::detail/$1');
+
 /**
  * ----------------
  * All About Guru
@@ -64,6 +71,8 @@ $routes->get('/guru/forum/detail/(:any)', 'Guru\Forum::detail/$1');
 
 $routes->get('/guru/fmapel/create/(:any)', 'Guru\Fmapel::create/$1');
 $routes->post('/guru/fmapel/store', 'Guru\Fmapel::store');
+
+$routes->get('/guru/forum/diskusi/(:any)', 'Guru\Fdiskusi::diskusi/$1');
 
 /**
  * --------------------------------------------------------------------
