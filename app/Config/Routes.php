@@ -58,6 +58,13 @@ $routes->get('/admin/guru/edit/(:any)', 'Admin\Guru::edit/$1');
 $routes->post('/admin/guru/update', 'Admin\Guru::update');
 $routes->get('/admin/guru/detail/(:any)', 'Admin\Guru::detail/$1');
 
+$routes->get('/admin/siswa', 'Admin\Siswa::index');
+$routes->get('/admin/siswa/create', 'Admin\Siswa::create');
+$routes->post('/admin/siswa/store', 'Admin\Siswa::store');
+$routes->get('/admin/siswa/edit/(:any)', 'Admin\Siswa::edit/$1');
+$routes->post('/admin/siswa/update', 'Admin\Siswa::update');
+$routes->get('/admin/siswa/detail/(:any)', 'Admin\Siswa::detail/$1');
+
 /**
  * ----------------
  * All About Guru
