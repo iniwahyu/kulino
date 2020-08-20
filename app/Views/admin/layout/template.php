@@ -224,6 +224,12 @@
                                     <span> Siswa </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="<?php echo base_url('admin/mapel'); ?>">
+                                    <i class="fa fa-user"></i>
+                                    <span> Mapel </span>
+                                </a>
+                            </li>
                         </ul>
 
                     </div>
