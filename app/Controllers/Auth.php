@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\AuthModel;
+use App\Models\Admin\GuruModel;
+use App\Models\Admin\SiswaModel;
 
 class Auth extends BaseController
 {
@@ -10,6 +12,8 @@ class Auth extends BaseController
 	public function __construct()
 	{
 		$this->auth = new AuthModel();
+		$this->guru = new GuruModel();
+		$this->siswa = new SiswaModel();
 	}
 
 	public function login()
@@ -48,10 +52,13 @@ class Auth extends BaseController
 				}
 				if($data['level'] == 2)
 				{
+					$guru		= $this->guru->getIdUser($data['id']);
 					$setSession = [
 						'id'		=> $data['id'],
 						'username'	=> $username,
 						'level'		=> $data['level'],
+						'nama_lengkap'	=> $guru['nama'],
+						'kodeuser'			=> $guru['nuptk'],
 						'isLogged'	=> true,
 					];
 					session()->set($setSession);
@@ -60,10 +67,13 @@ class Auth extends BaseController
 				}
 				if($data['level'] == 3)
 				{
+					$siswa		= $this->siswa->getIdUser($data['id']);
 					$setSession = [
 						'id'		=> $data['id'],
 						'username'	=> $username,
 						'level'		=> $data['level'],
+						'nama_lengkap'	=> $siswa['nama'],
+						'kodeuser'			=> $siswa['nis'],
 						'isLogged'	=> true,
 					];
 					session()->set($setSession);

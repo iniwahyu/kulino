@@ -24,6 +24,15 @@ class GuruModel extends Model
         }
     }
 
+    public function getIdUser($idUser)
+    {
+        return $this->where(
+            [
+                'id_user'       => $idUser,
+            ]
+        )->first();
+    }
+
     public function checkUsers($idUser)
     {
         return $this->db->table($this->table)->where(['id_user' => $idUser])->get()->resultID->num_rows;

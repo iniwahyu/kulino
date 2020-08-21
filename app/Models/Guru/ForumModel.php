@@ -13,22 +13,14 @@ class ForumModel extends Model
     ];
     protected $useTimestamps = true;
 
-    public function getForum($where = false)
+    public function getForum($idGuru)
     {
-        if($where == false)
-        {
-            return $this->db->table($this->table)
+        return $this->db->table($this->table)
                     ->select('forum.id, mm.nama, forum.deskripsi, mm.kelas, forum.kode')
                     ->join('master_mapel AS mm', 'mm.id = forum.id_mapel')
                     ->join('users AS u', 'u.id = forum.id_guru')
+                    ->where('id_guru', $idGuru)
                     ->get();
-        }
-        else
-        {
-            return $this->where([
-                'id'        => $where,
-            ])->first();
-        }
     }
 
     public function forumDetail($idUser)

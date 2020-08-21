@@ -4,82 +4,94 @@ namespace App\Controllers\Guru;
 
 use App\Controllers\BaseController;
 use App\Models\Guru\ForumMapelModel;
+use App\Models\Guru\ForumDiskusiModel;
 
 class Fdiskusi extends BaseController
 {
-    private $web    = 'guru/forummapel';
-    private $webCus = 'guru/fmapel';
+    private $web    = 'guru/forumdiskusi';
+    private $webCus = 'guru/fdiskusi';
 
     public function __construct()
     {
-        $this->forumMapel = new ForumMapelModel();
+        $this->forumMapel       = new ForumMapelModel();
+        $this->forumDiskusi     = new ForumDiskusiModel();
     }
 
-	public function index()
-	{
-        
-    }
-    
-	public function create($idForum)
-	{
-        $data = [
-            'title'     => 'Dashboard Guru',
-            'web'       => $this->webCus,
-            'idForum'   => $idForum,
-        ];
-        echo view("$this->web/create", $data);
-    }
-    
-    public function store()
+    public function diskusi($idForumMapel)
     {
-        // Global
+        $checkForumMapel = $this->forumMapel->checkForumMapel($idForumMapel);
+        $detailForumMapel   = $this->forumMapel->detail($idForumMapel)->getRowArray();
+        $forumDiskusi       = $this->forumDiskusi->get($idForumMapel, 0);
+        // dd(session()->get());
+        if($checkForumMapel == null)
+        {
+            echo "Tidak Ditemukan";
+        }
+        else
+        {
+            $data = [
+                'title'         => 'Mata Pelajaran '.$checkForumMapel['judul'],
+                'web'           => $this->webCus,
+                'fMapel'        => $checkForumMapel,
+                'detail'        => $detailForumMapel,
+                'diskusi'       => $forumDiskusi,
+            ];
+            echo view("$this->web/diskusi", $data);
+        }
+    }
+
+    public function comment($idForumMapel)
+    {
+        // Config
         $post       = $this->request->getVar();
-        $idForum    = $post['id_forum'];
-        // Global
-
-        // Config Upload File
+        $comment    = $this->request->getVar('comment');
         $berkas     = $this->request->getFile('berkas');
-        $namaBerkas = $berkas->getRandomName();
-        $berkas->move('upload/berkas', $namaBerkas);
-        // Config Upload File
+        $idUser     = session()->get('id');
+        // Config
 
-        // Form
-        $dataForm   = [
-            'id_forum'      => $idForum ,
-            'pertemuan'     => $post['pertemuan'],
-            'judul'         => $post['judul'],
-            'deskripsi'     => $post['deskripsi'],
-            'berkas'        => $namaBerkas,
-        ];
-        $this->forumMapel->save($dataForm);
-        // Form
-        
-        // Session Flash Data
-        session()->setFlashdata('sukses', 'Berhasil Membuat Forum Diskusi');
-        // Session Flash Data
+        if($berkas->getError() == 4)
+        {
+            $namaBerkas     = '';
 
-        // Redirect
-        return redirect()->to(base_url("guru/forum/detail/".$idForum));
-        // Redirect
-    }
+            // Form Action
+            $dataForm = [
+                'id_forum_mapel'            => $idForumMapel,
+                'id_user'                   => $idUser,
+                'parent'                    => 0,
+                'comment'                   => $comment,
+                'berkas'                    => $namaBerkas,
+            ];
+            $this->forumDiskusi->save($dataForm);
+            // Form Action
 
-    public function edit($id)
-    {
+            // Session and Redirect
+            session()->setFlashdata('sukses', 'Berhasil Menambahkan Komentar');
+            return redirect()->to(base_url("guru/forum/diskusi/".$idForumMapel));
+            // Session and Redirect
+            // dd($dataForm);
+        }
+        else
+        {
+            $namaBerkas     = $berkas->getRandomName();
+            $berkas->move("upload/materi", $namaBerkas);
 
-    }
+            // Form Action
+            $dataForm = [
+                'id_forum_mapel'            => $idForumMapel,
+                'id_user'                   => $idUser,
+                'parent'                    => 0,
+                'comment'                   => $comment,
+                'berkas'                    => $namaBerkas,
+            ];
+            $this->forumDiskusi->save($dataForm);
+            // Form Action
 
-    public function update($id)
-    {
-
-    }
-
-    public function delete($id)
-    {
-
-    }
-
-    public function detail($id)
-    {
-       
+            // Session and Redirect
+            session()->setFlashdata('sukses', 'Berhasil Menambahkan Komentar');
+            return redirect()->to(base_url("guru/forum/diskusi/".$idForumMapel));
+            // Session and Redirect
+            dd($dataForm);
+        }
+        // Config
     }
 }

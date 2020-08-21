@@ -39,14 +39,14 @@
             <div class="card-body">
                 <div class="list-group">
                     <ul class="list-group">
-                        <a href="<?php echo base_url("guru/forum/diskusi/".$forumDetail['id']) ?>" class="font-weight-bold text-dark list-group-action">
-                            <?php foreach($forumMapel as $fm): ?>
+                        <?php foreach($forumMapel as $fm): ?>
+                        <a href="<?php echo base_url("guru/forum/diskusi/".$fm['id']) ?>" class="font-weight-bold text-dark list-group-action">
                             <li class="list-group-item d-flex">
                                 <b><?php echo $fm['pertemuan'] ?></b>. &nbsp; <?php echo $fm['judul']; ?> 
                                 <span class="ml-auto badge badge-success badge-pill">Check</span>
                             </li>
-                            <?php endforeach; ?>
                         </a>
+                        <?php endforeach; ?>
                     </ul>
                     
                 </div>
@@ -60,16 +60,15 @@
                 <h4 class="card-title mt-1 mb-0">Code</h4>
             </div>
             <div class="card-body">
-                <p>Silahkan Bagikan Link dibawah ini kepada para Siswa. Link ini dikhusukan untuk siswa, agar bisa bergabung.</p>
+                <p>Silahkan Bagikan Kode dibawah ini kepada para Siswa. Kode ini dikhusukan untuk siswa, agar bisa bergabung.</p>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="kode" value="<?php echo base_url("join/".$forumDetail['kode']); ?>" readonly>
+                        <input type="text" class="form-control" id="kode" value="<?php echo $forumDetail['kode']; ?>" readonly>
                         <div class="input-group-append">
                             <button class="btn btn-dark waves-effect waves-light" id="copy" type="button"><i class="fa fa-copy"></i> Copy</button>
                         </div>
                     </div>
                 </div>
-                <p>Siswa juga bisa memasukkan Kode ini di bagian <b>Menu Forum</b> dengan memasukkan Kode: <b><?php echo $forumDetail['kode']; ?></b></p>
             </div>
         </div>
     </div>

@@ -18,8 +18,7 @@ class Forum extends BaseController
 
 	public function index()
 	{
-        $idGuru         = session()->get('id');
-        $forum          = $this->forum->getForum($idGuru)->getResultArray();
+        $forum          = $this->forum->getForum()->getResultArray();
         // dd($forum);
         $data = [
             'title'     => 'Dashboard Guru',
