@@ -83,7 +83,44 @@
                             <a href="javascript: void(0);" class="btn btn-sm btn-link text-muted">
                                 <i class="mdi mdi-reply"></i> Reply
                             </a>
+                            <a href="javascript: void(0);" class="btn btn-sm btn-link text-muted edit" data-toggle="modal" data-target="#modal-edit<?php echo $diskusis['id']; ?>" data-id="<?php echo $diskusis['id']; ?>">
+                                <i class="fa fa-edit"></i> Edit
+                            </a>
                         </div>
+
+                        <!-- Modal Edit -->
+                        <div id="modal-edit<?php echo $diskusis['id']; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="standard-modalLabel">Edit Komentar</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php 
+                                        $db         = \Config\Database::connect();
+                                        $query      = $db->query("SELECT * FROM forum_diskusi WHERE id = ".$diskusis['id'])->getRowArray();
+                                        ?>
+                                        <form action="<?php echo base_url("$web/commentEdit/".$query['id']); ?>" method="post" enctype="multipart/form-data">
+                                            <?php echo csrf_field(); ?>
+                                            <input type="hidden" name="id_forum" value="<?php echo $detail['id']; ?>">
+                                            <textarea class="form-control" id="summernote-edit" name="comment"><?php echo $query['comment']; ?></textarea>
+                                            <div class="d-flex mt-1">
+                                                <div class="mr-auto">
+                                                    <input type="file" class="form-control" id="berkas-edit" name="berkas">
+                                                    <input type="hidden" id="berkas-edit-lama" name="berkas-lama" value="<?php echo $query['berkas']; ?>">
+                                                    <small>Tidak wajib melakukan <b>UPLOAD BERKAS</b>. Jika tidak dibutuhkan, harap dikosongkan</small>
+                                                </div>
+                                                <div class="ml-auto">
+                                                    <button type="submit" class="btn btn-sm btn-dark waves-effect waves-light">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        <!-- Modal Edit -->
                     </div>
                 </div>
             </div>
@@ -122,6 +159,8 @@
             </div>
         </div>
         <!-- Comment -->
+
+
     </div>
     <!-- COL -->
 </div>
@@ -132,7 +171,7 @@
 <script>
     $(document).ready(function (params) {
         // Summernote
-        $("#summernote").summernote({
+        $("#summernote, #summernote-edit").summernote({
             height: 100,
             toolbar: [
                 // [groupName, [list of button]]
@@ -145,6 +184,13 @@
             ]
         });
         // Summernote
+
+        // Modal
+        // $(".edit").click(function() {
+        //     let id = $(this).data('id');
+        //     $("#edit-modal").modal("show");
+        // });
+        // Modal
     })
 </script>
 <?php echo $this->endSection('js'); ?>

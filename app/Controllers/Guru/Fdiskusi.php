@@ -90,7 +90,61 @@ class Fdiskusi extends BaseController
             session()->setFlashdata('sukses', 'Berhasil Menambahkan Komentar');
             return redirect()->to(base_url("guru/forum/diskusi/".$idForumMapel));
             // Session and Redirect
-            dd($dataForm);
+        }
+        // Config
+    }
+
+    public function commentEdit($id)
+    {
+        // Config
+        $post           = $this->request->getVar();
+        $idForumMapel   = $post['id_forum'];
+        $comment        = $this->request->getVar('comment');
+        $berkas         = $this->request->getFile('berkas');
+        $idUser         = session()->get('id');
+        // Config
+
+        if($berkas->getError() == 4)
+        {
+            $namaBerkas     = $post['berkas-lama'];
+
+            // Form Action
+            $dataForm = [
+                'id_forum_mapel'            => $idForumMapel,
+                'id_user'                   => $idUser,
+                'parent'                    => 0,
+                'comment'                   => $comment,
+                'berkas'                    => $namaBerkas,
+            ];
+            $this->forumDiskusi->update($id, $dataForm);
+            // Form Action
+
+            // Session and Redirect
+            session()->setFlashdata('sukses', 'Berhasil Menambahkan Komentar');
+            return redirect()->to(base_url("guru/forum/diskusi/".$idForumMapel));
+            // Session and Redirect
+        }
+        else
+        {
+            $namaBerkas     = $berkas->getRandomName();
+            unlink("upload/materi/".$post['berkas-lama']);
+            $berkas->move("upload/materi", $namaBerkas);
+
+            // Form Action
+            $dataForm = [
+                'id_forum_mapel'            => $idForumMapel,
+                'id_user'                   => $idUser,
+                'parent'                    => 0,
+                'comment'                   => $comment,
+                'berkas'                    => $namaBerkas,
+            ];
+            $this->forumDiskusi->update($id, $dataForm);
+            // Form Action
+
+            // Session and Redirect
+            session()->setFlashdata('sukses', 'Berhasil Menambahkan Komentar');
+            return redirect()->to(base_url("guru/forum/diskusi/".$idForumMapel));
+            // Session and Redirect
         }
         // Config
     }
