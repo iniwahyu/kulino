@@ -1,1 +1,0 @@
-<?php echo $this->extend('guru/layout/template'); ?>
