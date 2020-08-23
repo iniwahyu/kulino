@@ -60,24 +60,28 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Username (NIS/NUPTK)</th>
-                                                <th>Tingkatan</th>
-                                                <th>Last Login</th>
+                                                <th>NIS/NUPTK</th>
+                                                <th>Nama</th>
+                                                <th>Email</th>
+                                                <th>No HP</th>
+                                                <th>Jenis Kelamin</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i=1; foreach($user as $users): ?>
+                                            <?php $i=1; foreach($pengguna as $penggunas): ?>
                                             <tr>
                                                 <td><?php echo $i++; ?></td>
-                                                <td><?php echo $users['username']; ?></td>
-                                                <td><?php echo $users['level']; ?></td>
-                                                <td><?php echo $users['last_login']; ?></td>
+                                                <td><?php echo $penggunas['kode'] ?></td>
+                                                <td><?php echo $penggunas['nama'] ?></td>
+                                                <td><?php echo $penggunas['email'] ?></td>
+                                                <td><?php echo $penggunas['nohp'] ?></td>
+                                                <td><?php echo $penggunas['jenis_kelamin'] ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url("$web/edit/".$users['id']); ?>" class="btn btn-info btn-rounded waves-effect waves-light">
+                                                    <a href="<?php echo base_url("$web/edit/".$penggunas['id']); ?>" class="btn btn-info btn-rounded waves-effect waves-light">
                                                         <span class="btn-label"><i class="fa fa-edit"></i></span> Edit
                                                     </a>
-                                                    <a href="<?php echo base_url("$web/delete/".$users['id']); ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
+                                                    <a href="<?php echo base_url("$web/delete/".$penggunas['id']); ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
                                                         <span class="btn-label"><i class="fa fa-trash-alt"></i></span> Hapus
                                                     </a>
                                                 </td>
