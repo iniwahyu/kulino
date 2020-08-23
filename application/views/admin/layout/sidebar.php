@@ -21,6 +21,13 @@
         </a>
     </li>
 
+    <li>
+        <a href="<?php echo base_url("admin/mapel"); ?>">
+            <i class="fa fa-users"></i>
+            <span> Mata Pelajaran </span>
+        </a>
+    </li>
+
     <!-- Demo -->
     <!-- <li>
         <a href="apps-calendar.html">
