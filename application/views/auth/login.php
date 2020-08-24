@@ -49,6 +49,18 @@
                                     <!-- <p class="text-muted mb-4 mt-3">Enter your email address and password to access admin panel.</p> -->
                                 </div>
 
+                                <?php if($this->session->flashdata('sukses')): ?>
+                                <div class="alert alert-success bg-success text-white border-0" role="alert">
+                                    <?php echo $this->session->flashdata('sukses'); ?>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if($this->session->flashdata('gagal')): ?>
+                                <div class="alert alert-danger bg-danger text-white border-0" role="alert">
+                                    <?php echo $this->session->flashdata('gagal') ?>
+                                </div>
+                                <?php endif; ?>
+
                                 <form action="<?php echo base_url("$web/signin") ?>" method="POST">
                                     <div class="form-group mb-3">
                                         <label for="emailaddress">Username</label>

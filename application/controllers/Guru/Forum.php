@@ -106,6 +106,55 @@ class Forum extends CI_Controller {
 
     public function detail($id)
     {
+        // Checking
+        $checkForum     = $this->crud->get_where('*', $this->table, ['id' => $id]);
+        $idGuru         = $this->session->userdata('id');
+        // Checking
 
+        if($checkForum->num_rows() > 0)
+        {
+            $forum              = $this->forum->getForum($idGuru)->row_array();
+            $forumMapel         = $this->forum->getForumMapel($id, $idGuru)->result_array();
+            $data = [
+                'title'         => 'Forum',
+                'web'           => $this->web,
+                'id'            => $id,
+                'forum'         => $forum,
+                'forumMapel'    => $forumMapel,
+            ];
+            $this->load->view("$this->web/detail", $data);
+        }
+        else
+        {
+            $this->session->set_flashdata('gagal', 'Forum Tidak Ditemukan');
+            redirect(base_url("$this->web"));
+        }
+    }
+
+    public function diskusi($idForumMapel)
+    {
+        // Checking
+        $checkForum     = $this->crud->get_where('*', 'forum_mapel', ['id' => $idForumMapel]);
+        $idGuru         = $this->session->userdata('id');
+        // Checking
+
+        if($checkForum->num_rows() > 0)
+        {
+            $forum              = $this->forum->getForumDiskusi($idForumMapel)->row_array();
+            $data = [
+                'title'         => 'Forum',
+                'web'           => $this->web,
+                'idForumMapel'  => $idForumMapel,
+                // 'forumMapel'    => $forumMapel,
+                'forum'         => $forum,
+                // 'forumMapel'    => $forumMapel,
+            ];
+            $this->load->view("$this->web/diskusi", $data);
+        }
+        else
+        {
+            $this->session->set_flashdata('gagal', 'Forum Tidak Ditemukan');
+            redirect(base_url("$this->web"));
+        }
     }
 }
