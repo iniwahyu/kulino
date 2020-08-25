@@ -125,6 +125,71 @@
                         </div>
                     </div> <!-- container -->
 
+                    <!-- Modal Edit -->
+                    <div id="modal-edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Edit Komentar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?php echo base_url("$web/commentEdit/"); ?>" id="formCommentEdit" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" id="id_forum_diskusi" name="id_forum_diskusi">
+                                        <textarea class="form-control" id="summernote-edit" name="comment"></textarea>
+                                        <div class="d-flex mt-1">
+                                            <div class="mr-auto">
+                                                <input type="file" class="form-control" id="berkas-edit" name="berkas">
+                                                <input type="text" id="berkas-edit-lama" name="berkas">
+                                                <small>Tidak wajib melakukan <b>UPLOAD BERKAS</b>. Jika tidak dibutuhkan, harap dikosongkan</small>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <button type="submit" class="btn btn-sm btn-dark waves-effect waves-light">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    <!-- Modal Edit -->
+                    
+                    <!-- Modal Reply -->
+                    <div id="modal-reply" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Balas Komentar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?php echo base_url("$web/commentReply/".$forum['id']); ?>" id="formCommentReply" method="post" enctype="multipart/form-data">
+
+                                        <p>Membalas Komentar <span class="pengguna"></span></p>
+                                        <blockquote>
+                                            <div class="pengguna-komentar">
+                                            </div>
+                                        </blockquote>
+
+                                        <input type="hidden" id="id_forum_diskusi_reply" name="id_forum_diskusi">
+
+                                        <textarea class="form-control" id="summernote-reply" name="comment"></textarea>
+                                        <div class="d-flex mt-1">
+                                            <div class="mr-auto">
+                                                <input type="file" class="form-control" id="berkas-reply" name="berkas">
+                                                <small>Tidak wajib melakukan <b>UPLOAD BERKAS</b>. Jika tidak dibutuhkan, harap dikosongkan</small>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <button type="submit" class="btn btn-sm btn-dark waves-effect waves-light">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    <!-- Modal Reply -->
+
                 </div> <!-- content -->
 
                 <!-- Footer Start -->
@@ -226,7 +291,8 @@
                         contentType : false,
                         data		: new FormData(this),
                         success     : (res) => {
-                            $("#summernote").summernote("");
+                            $("#summernote").summernote("reset");
+                            $("#berkas").val("");
                         }
                     });
                 });
@@ -235,9 +301,68 @@
                 // Comment Edit
                 $('.comment').on('click', '#edit', function() {
                     let id = $(this).data('id');
-                    alert(id);
-                })
+                    $.ajax({
+                        url: "<?php echo base_url("guru/forum/detailComment/"); ?>"+id,
+                        dataType: 'JSON',
+                        success: (res) => {
+                            $("#modal-edit").modal("show");
+                            $("#id_forum_diskusi").val(res.id);
+                            $("#summernote-edit").summernote('insertText', res.comment);
+                            $("#berkas-edit-lama").val(res.berkas);
+                        },
+                    });
+                });
+                $("#formCommentEdit").on("submit", function(e) {
+                    e.preventDefault();
+                    let t = $(this);
+                    $("#modal-edit").modal("hide");
+                    $.ajax({
+                        url: t.attr('action'),
+                        type: t.attr('method'),
+                        dataType: 'JSON',
+                        processData : false,
+                        contentType : false,
+                        data		: new FormData(this),
+                        success     : (res) => {
+                            $("#summernote-edit").summernote("reset");
+                            $("#berkas-edit-lama").val("");
+                        }
+                    });
+                });
                 // Comment Edit
+
+                // Comment Reply
+                $('.comment').on('click', '.reply', function() {
+                    let id = $(this).data('id');
+                    // alert(id);
+                    $.ajax({
+                        url: "<?php echo base_url("guru/forum/detailBalasComment/"); ?>"+id,
+                        dataType: 'JSON',
+                        success: (res) => {
+                            $("#modal-reply").modal("show");
+                            $(".pengguna").text(res.pengguna);
+                            $(".pengguna-komentar").html(res.comment);
+                            $("#id_forum_diskusi_reply").val(res.id);
+                        },
+                    });
+                });
+                $("#formCommentReply").on("submit", function(e) {
+                    e.preventDefault();
+                    let t = $(this);
+                    $("#modal-reply").modal("hide");
+                    $.ajax({
+                        url: t.attr('action'),
+                        type: t.attr('method'),
+                        dataType: 'JSON',
+                        processData : false,
+                        contentType : false,
+                        data		: new FormData(this),
+                        success     : (res) => {
+                            $("#summernote-reply").summernote("reset");
+                        }
+                    });
+                });
+                // Comment Reply
             })
         </script>
     </body>

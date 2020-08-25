@@ -47,6 +47,16 @@ class Forum_model extends CI_Model {
                         ->join('users AS u', 'u.id = p.id_user')
                         ->join('master_level AS l', 'l.id = u.level')
                         ->where('fd.id_forum_mapel', $idForumMapel)
+                        ->order_by('fd.id', 'DESC')
+                        ->get();
+    }
+
+    public function getDetailBalasComment($idForumDiskusi)
+    {
+        return $this->db->select('fd.`id`, fd.`parent`, fd.`comment`, fd.`berkas`, p.`nama` AS pengguna')
+                        ->from('forum_diskusi AS fd')
+                        ->join('pengguna AS p', 'p.id_user = fd.id_user')
+                        ->where('fd.id', $idForumDiskusi)
                         ->get();
     }
 }
