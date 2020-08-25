@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require APPPATH . '../vendor/autoload.php';
+
 class Forum extends CI_Controller {
 
     private $web        = "guru/forum";
@@ -155,6 +157,84 @@ class Forum extends CI_Controller {
         {
             $this->session->set_flashdata('gagal', 'Forum Tidak Ditemukan');
             redirect(base_url("$this->web"));
+        }
+    }
+
+    public function showComment($idForumMapel)
+    {
+        $data = $this->forum->getDetailComment($idForumMapel)->result_array();
+        echo json_encode($data);
+    }
+
+    public function comment($idForumMapel)
+    {
+        // Config
+        $post       = $this->input->post();
+        // Config
+
+        // Config Upload
+        $config     = [
+            'upload_path'       => './assets/upload/diskusi/',
+            'allowed_types'     => 'jpg|jpeg|png|pdf',
+            'max_size'          => 2048,
+            'remove_space'      => true,
+            'encrypt_name'      => true,
+            'overwrite'         => true,
+        ];
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        // Config Upload
+
+        if($this->upload->do_upload('berkas'))
+        {
+            $filename   = $this->upload->data('file_name');
+            $dataForm   = [
+                'id_forum_mapel'    => $idForumMapel,
+                'id_user'           => $this->session->userdata('id'),
+                'parent'            => 0,
+                'comment'           => $post['comment'],
+                'berkas'            => $filename,       
+            ];
+            $this->crud->insert('forum_diskusi', $dataForm);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+            $pusher = new Pusher\Pusher(
+                'b2996c15c176cee9cf0f',
+                'c1ee5102169de743bfa0',
+                '845923',
+                $options
+            );
+            
+            $data['message'] = 'Berhasil';
+            $pusher->trigger('my-channel', 'my-event', $data);
+        }
+        else
+        {
+            $dataForm   = [
+                'id_forum_mapel'    => $idForumMapel,
+                'id_user'           => $this->session->userdata('id'),
+                'parent'            => 0,
+                'comment'           => $post['comment'],
+                'berkas'            => '',       
+            ];
+            $this->crud->insert('forum_diskusi', $dataForm);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+            $pusher = new Pusher\Pusher(
+                'b2996c15c176cee9cf0f',
+                'c1ee5102169de743bfa0',
+                '845923',
+                $options
+            );
+            
+            $data['message'] = 'Berhasil';
+            $pusher->trigger('my-channel', 'my-event', $data);
         }
     }
 }

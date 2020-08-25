@@ -86,8 +86,8 @@
                             <div class="col-xl-8 col-lg-8 col-md-6">
                                 <!-- FORM -->
                                 <div class="card-box">
-                                    <form action="<?php echo base_url("$web/comment/".$forum['id']); ?>" method="post" enctype="multipart/form-data">
-                                        <textarea class="form-control" id="summernote" name="comment"></textarea>
+                                    <form action="<?php echo base_url("$web/comment/".$forum['id']); ?>" class="form" id="formComment" method="post" enctype="multipart/form-data">
+                                        <textarea class="form-control" id="summernote" name="comment" required></textarea>
                                         <div class="d-flex mt-1">
                                             <div class="mr-auto">
                                                 <input type="file" class="form-control" id="berkas" name="berkas">
@@ -99,6 +99,27 @@
                                         </div>
                                     </form>
                                 </div>
+                                <!-- FORM -->
+
+                                <!-- COMMENT -->
+                                <div class="comment">
+                                    <!-- <div class="card-box">
+                                        <div class="media mb-3 mt-1">
+                                            <div class="media-body">
+                                                <small class="float-right">Dec 14, 2017, 5:17 AM</small>
+                                                <h6 class="mb-2 font-14">Steven Smith</h6>
+
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate eveniet corrupti possimus similique quibusdam voluptatem earum, blanditiis modi impedit, porro iusto cum officia obcaecati sequi vero temporibus commodi laboriosam ipsam.</p>
+
+                                                <div class="mt-1">
+                                                    <a href="" class="btn btn-primary mr-2"><i class="mdi mdi-reply mr-1"></i> Reply</a>
+                                                    <a href="" class="btn btn-warning"><i class="fa fa-edit ml-1"></i> Edit</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <!-- COMMENT -->
                             </div>
                             <!-- COL -->
                         </div>
@@ -126,6 +147,7 @@
 
         <?php $this->load->view('guru/layout/js'); ?>
         <script src="<?php echo base_url(); ?>/assets/libs/summernote/summernote-bs4.min.js"></script>
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
         <script src="<?php echo base_url(); ?>/assets/js/app.min.js"></script>
         <script>
             $(document).ready(function (params) {
@@ -143,6 +165,79 @@
                     ]
                 });
                 // Summernote
+
+                // Pusher
+                // Enable pusher logging - don't include this in production
+                Pusher.logToConsole = true;
+
+                var pusher = new Pusher('b2996c15c176cee9cf0f', {
+                    cluster: 'ap1'
+                });
+
+                var channel = pusher.subscribe('my-channel');
+                channel.bind('my-event', function(data) {
+                    // alert(JSON.stringify(data));
+                    showComment();
+                });
+                // Pusher
+                showComment();
+
+                // Comment Show
+                function showComment() {
+                    $.ajax({
+                        url: '<?php echo base_url("guru/forum/showComment/".$forum['id']); ?>',
+                        type: 'GET',
+                        async: true,
+                        dataType: 'JSON',
+                        success: (res) => {
+                            var html = '';
+                            var count = 1;
+                            var i;
+                            for(i=0; i<res.length; i++) {
+                                html += '<div class="card-box">'+
+                                            '<div class="media mb-3 mt-1">'+
+                                                '<div class="media-body">'+
+                                                    '<small class="float-right">'+res[i].created_at+'</small>'+
+                                                    '<h6 class="mb-2 font-14">'+res[i].pengguna+'<span class="btn btn-sm btn-primary waves-effect waves-light btn-rounded ml-2">'+res[i].level+'</span></h6>'+
+                                                    '<p>'+res[i].comment+'</p>'+
+                                                    '<div class="mt-1">'+
+                                                        '<button class="btn btn-primary mr-2 reply" data-id="'+res[i].id+'"><i class="mdi mdi-reply mr-1"></i> Reply</button>'+
+                                                        '<button class="btn btn-warning edit" id="edit" data-id="'+res[i].id+'"><i class="fa fa-edit ml-1"></i> Edit</button>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>';
+                            }
+                            $(".comment").html(html);
+                        }
+                    });
+                }
+                // Comment Show
+
+                // Comment Add
+                $("#formComment").on("submit", function(e) {
+                    e.preventDefault();
+                    let t = $(this);
+                    $.ajax({
+                        url: t.attr('action'),
+                        type: t.attr('method'),
+                        dataType: 'JSON',
+                        processData : false,
+                        contentType : false,
+                        data		: new FormData(this),
+                        success     : (res) => {
+                            $("#summernote").summernote("");
+                        }
+                    });
+                });
+                // Comment Add
+
+                // Comment Edit
+                $('.comment').on('click', '#edit', function() {
+                    let id = $(this).data('id');
+                    alert(id);
+                })
+                // Comment Edit
             })
         </script>
     </body>

@@ -38,4 +38,15 @@ class Forum_model extends CI_Model {
                         ])
                         ->get();
     }
+
+    public function getDetailComment($idForumMapel)
+    {
+        return $this->db->select('fd.*, p.nama AS pengguna, l.nama AS level')
+                        ->from('forum_diskusi AS fd')
+                        ->join('pengguna AS p', 'p.id_user = fd.id_user')
+                        ->join('users AS u', 'u.id = p.id_user')
+                        ->join('master_level AS l', 'l.id = u.level')
+                        ->where('fd.id_forum_mapel', $idForumMapel)
+                        ->get();
+    }
 }
