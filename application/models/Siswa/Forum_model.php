@@ -28,7 +28,7 @@ class Forum_model extends CI_Model {
 
     public function showComment($idForumMapel)
     {
-        return $this->db->select('fd.`id`, p.`nama` AS pengguna, fd.`comment`, fd.`berkas`, l.`nama` AS level, fd.`created_at`')
+        return $this->db->select('fd.`id`, fd.id_user, p.`nama` AS pengguna, fd.`comment`, fd.`berkas`, l.`nama` AS level, fd.`created_at`')
                         ->from('forum_diskusi AS fd')
                         ->join('forum_mapel AS fm', 'fm.id = fd.id_forum_mapel')
                         ->join('forum AS f', 'f.id = fm.id_forum')
@@ -39,6 +39,15 @@ class Forum_model extends CI_Model {
                             'fd.id_forum_mapel' => $idForumMapel,
                         ])
                         ->order_by('fd.id', 'DESC')
+                        ->get();
+    }
+
+    public function getDetailBalasComment($idForumDiskusi)
+    {
+        return $this->db->select('fd.`id`, fd.`parent`, fd.`comment`, fd.`berkas`, p.`nama` AS pengguna')
+                        ->from('forum_diskusi AS fd')
+                        ->join('pengguna AS p', 'p.id_user = fd.id_user')
+                        ->where('fd.id', $idForumDiskusi)
                         ->get();
     }
 }

@@ -163,7 +163,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="<?php echo base_url("$web/commentReply/".$forum['id']); ?>" id="formCommentReply" method="post" enctype="multipart/form-data">
+                                    <form action="<?php echo base_url("$web/commentReply/".$forumMapel['id']); ?>" id="formCommentReply" method="post" enctype="multipart/form-data">
 
                                         <p>Membalas Komentar <span class="pengguna"></span></p>
                                         <blockquote>
@@ -217,7 +217,7 @@
         <script>
             $(document).ready(function (params) {
                 // Summernote
-                $("#summernote, #summernote-edit").summernote({
+                $("#summernote, #summernote-edit, #summernote-reply").summernote({
                     height: 100,
                     toolbar: [
                         // [groupName, [list of button]]
@@ -267,9 +267,11 @@
                                                     '<h6 class="mb-2 font-14">'+res[i].pengguna+'<span class="btn btn-sm btn-primary waves-effect waves-light btn-rounded ml-2">'+res[i].level+'</span></h6>'+
                                                     '<p>'+res[i].comment+'</p>'+
                                                     '<div class="mt-1">'+
-                                                        '<button class="btn btn-primary mr-2 reply" data-id="'+res[i].id+'"><i class="mdi mdi-reply mr-1"></i> Reply</button>'+
-                                                        '<button class="btn btn-warning edit" id="edit" data-id="'+res[i].id+'"><i class="fa fa-edit ml-1"></i> Edit</button>'+
-                                                    '</div>'+
+                                                        '<button class="btn btn-primary mr-2 reply" data-id="'+res[i].id+'"><i class="mdi mdi-reply mr-1"></i> Reply</button>';
+                                                        if(res[i].id_user == <?php echo $this->session->userdata('id') ?>){
+                                                            html += '<button class="btn btn-warning edit" id="edit" data-id="'+res[i].id+'"><i class="fa fa-edit ml-1"></i> Edit</button>';
+                                                        }
+                                            html+=    '</div>'+
                                                 '</div>'+
                                             '</div>'+
                                         '</div>';
