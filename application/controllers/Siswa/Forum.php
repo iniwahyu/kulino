@@ -44,17 +44,29 @@ class Forum extends CI_Controller {
         if($checkForum->num_rows() > 0)
         {
             $dataForum  = $checkForum->row_array();
-            $dataForm   = [
-                'id_forum'  => $dataForum['id'],
-                'id_user'   => $idUser,
-                'kode'      => $post['kode'],
-            ];
-            $this->crud->insert('forum_anggota', $dataForm);
-            $response   = [
-                'status'    => 200,
-                'message'   => 'Berhasil Bergabung',
-            ];
-            echo json_encode($response);
+            $checkUsers = $this->crud->get_where('*', 'forum_anggota', ['id_user' => $idUser, 'kode' => $post['kode']]);
+            if($checkUsers->num_rows() > 0)
+            {
+                $response = [
+                    'status'    => 400,
+                    'message'   => 'Sudah Bergabung',
+                ];
+                echo json_encode($response);
+            }
+            else
+            {
+                $dataForm   = [
+                    'id_forum'  => $dataForum['id'],
+                    'id_user'   => $idUser,
+                    'kode'      => $post['kode'],
+                ];
+                $this->crud->insert('forum_anggota', $dataForm);
+                $response   = [
+                    'status'    => 200,
+                    'message'   => 'Berhasil Bergabung',
+                ];
+                echo json_encode($response);
+            }
         }
         else
         {
@@ -63,6 +75,140 @@ class Forum extends CI_Controller {
                 'message'   => 'Forum Tidak Ditemukan',
             ];
             echo json_encode($response);
+        }
+    }
+
+    public function detail($idForum)
+    {
+        // Checking
+        $checkForum     = $this->crud->get_where('*', $this->table, ['id' => $idForum]);
+        $idUser         = $this->session->userdata('id');
+        // Checking
+
+        if($checkForum->num_rows() > 0)
+        {
+            $dataForum          = $checkForum->row_array();
+            $forum              = $this->forum->getForum($idForum)->row_array();
+            $forumMapel         = $this->crud->get_where('*', 'forum_mapel', ['id_forum' => $idForum], 'pertemuan ASC')->result_array();
+            $data = [
+                'title'         => 'Forum',
+                'web'           => $this->web,
+                'id'            => $idForum,
+                'forum'         => $forum,
+                'forumMapel'    => $forumMapel,
+            ];
+            $this->load->view("$this->web/detail", $data);
+        }
+        else
+        {
+            // print_r($checkForum); die;
+            $this->session->set_flashdata('gagal', 'Forum Tidak Ditemukan');
+            redirect(base_url("$this->web"));
+        }
+    }
+
+    public function diskusi($idForumMapel)
+    {
+        // Checking
+        $checkForumMapel    = $this->crud->get_where('*', 'forum_mapel', ['id' => $idForumMapel]);
+        // Checking
+
+        if($checkForumMapel->num_rows() > 0)
+        {
+            // Query
+            $dataForumMapel = $checkForumMapel->row_array();
+            $forumMapel     = $this->forum->getForumMapelDetail($idForumMapel)->row_array();
+            // Query
+
+            $data   = [
+                'title'         => 'Forum Diskusi',
+                'web'           => $this->web,
+                'forumMapel'    => $forumMapel,
+            ];
+            $this->load->view("$this->web/diskusi", $data);
+        }
+        else
+        {
+            $this->session->set_flashdata('gagal', 'Mata Pelajaran Tidak Ditemukan');
+            redirect(base_url("$this->web"));
+        }
+    }
+    
+    public function showComment($idForumMapel)
+    {
+        $data = $this->forum->showComment($idForumMapel)->result_array();
+        echo json_encode($data);
+    }
+
+    public function comment($idForumMapel)
+    {
+        // Config
+        $post       = $this->input->post();
+        // Config
+
+        // Config Upload
+        $config     = [
+            'upload_path'       => './assets/upload/diskusi/',
+            'allowed_types'     => 'jpg|jpeg|png|pdf',
+            'max_size'          => 2048,
+            'remove_space'      => true,
+            'encrypt_name'      => true,
+            'overwrite'         => true,
+        ];
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        // Config Upload
+
+        if($this->upload->do_upload('berkas'))
+        {
+            $filename   = $this->upload->data('file_name');
+            $dataForm   = [
+                'id_forum_mapel'    => $idForumMapel,
+                'id_user'           => $this->session->userdata('id'),
+                'parent'            => 0,
+                'comment'           => $post['comment'],
+                'berkas'            => $filename,       
+            ];
+            $this->crud->insert('forum_diskusi', $dataForm);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+            $pusher = new Pusher\Pusher(
+                'b2996c15c176cee9cf0f',
+                'c1ee5102169de743bfa0',
+                '845923',
+                $options
+            );
+            
+            $data['message'] = 'Berhasil';
+            $pusher->trigger('my-channel', 'my-event', $data);
+        }
+        else
+        {
+            $dataForm   = [
+                'id_forum_mapel'    => $idForumMapel,
+                'id_user'           => $this->session->userdata('id'),
+                'parent'            => 0,
+                'comment'           => $post['comment'],
+                'berkas'            => '',       
+            ];
+            $this->crud->insert('forum_diskusi', $dataForm);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+            $pusher = new Pusher\Pusher(
+                'b2996c15c176cee9cf0f',
+                'c1ee5102169de743bfa0',
+                '845923',
+                $options
+            );
+            
+            $data['message'] = 'Berhasil';
+            $pusher->trigger('my-channel', 'my-event', $data);
         }
     }
 }

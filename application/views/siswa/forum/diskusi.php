@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <?php $this->load->view('guru/layout/css'); ?>
+        <?php $this->load->view('siswa/layout/css'); ?>
         <link href="<?php echo base_url(); ?>/assets/libs/summernote/summernote-bs4.min.css" rel="stylesheet" type="text/css" />
     </head>
 
@@ -11,7 +11,7 @@
         <div id="wrapper">
             <!-- Topbar Start -->
             <div class="navbar-custom">
-                <?php $this->load->view('guru/layout/header'); ?>
+                <?php $this->load->view('siswa/layout/header'); ?>
             </div>
             <!-- end Topbar -->
 
@@ -22,7 +22,7 @@
 
                     <!--- Sidemenu -->
                     <div id="sidebar-menu">
-                        <?php $this->load->view('guru/layout/sidebar'); ?>
+                        <?php $this->load->view('siswa/layout/sidebar'); ?>
                     </div>
                     <!-- End Sidebar -->
 
@@ -51,31 +51,31 @@
                                             <tr>
                                                 <th width="125">Mata Pelajaran</th>
                                                 <th>:</th>
-                                                <td><?php echo $forum['mapel']; ?></td>
+                                                <td><?php echo $forumMapel['mapel']; ?></td>
                                             </tr>
                                             <tr>
                                                 <th width="125">Kelas</th>
                                                 <th>:</th>
-                                                <td><?php echo $forum['kelas']; ?></td>
+                                                <td><?php echo $forumMapel['kelas']; ?></td>
                                             </tr>
                                             <tr>
                                                 <th width="125">Materi</th>
                                                 <th>:</th>
-                                                <td><?php echo $forum['judul']; ?></td>
+                                                <td><?php echo $forumMapel['judul']; ?></td>
                                             </tr>
                                             <tr>
                                                 <th width="125">Pengajar</th>
                                                 <th>:</th>
-                                                <td><?php echo $forum['guru']; ?></td>
+                                                <td><?php echo $forumMapel['guru']; ?></td>
                                             </tr>
                                         </table>
                                         <div>
                                             <h5 class="bg-light p-2">Deskripsi</h5>
-                                            <p><?php echo $forum['deskripsi']; ?></p>
+                                            <p><?php echo $forumMapel['deskripsi']; ?></p>
                                         </div>
                                         <div>
                                             <h5 class="bg-light p-2">Berkas</h5>
-                                            <a href="<?php echo base_url("$web/berkas/".$forum['id']); ?>" class="btn btn-success"><i class="fa fa-download mr-1"></i> DOWNLOAD</a>
+                                            <a href="<?php echo base_url("$web/berkas/".$forumMapel['id']); ?>" class="btn btn-success"><i class="fa fa-download mr-1"></i> DOWNLOAD</a>
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                             <div class="col-xl-8 col-lg-8 col-md-6">
                                 <!-- FORM -->
                                 <div class="card-box">
-                                    <form action="<?php echo base_url("$web/comment/".$forum['id']); ?>" class="form" id="formComment" method="post" enctype="multipart/form-data">
+                                    <form action="<?php echo base_url("$web/comment/".$forumMapel['id']); ?>" class="form" id="formComment" method="post" enctype="multipart/form-data">
                                         <textarea class="form-control" id="summernote" name="comment" required></textarea>
                                         <div class="d-flex mt-1">
                                             <div class="mr-auto">
@@ -194,7 +194,7 @@
 
                 <!-- Footer Start -->
                 <footer class="footer">
-                    <?php $this->load->view('guru/layout/footer'); ?>
+                    <?php $this->load->view('siswa/layout/footer'); ?>
                 </footer>
                 <!-- end Footer -->
             </div>
@@ -203,14 +203,14 @@
 
         <!-- Right Sidebar -->
         <div class="right-bar">
-            <?php $this->load->view('guru/layout/right'); ?>
+            <?php $this->load->view('siswa/layout/right'); ?>
         </div>
         <!-- /Right-bar -->
 
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
 
-        <?php $this->load->view('guru/layout/js'); ?>
+        <?php $this->load->view('siswa/layout/js'); ?>
         <script src="<?php echo base_url(); ?>/assets/libs/summernote/summernote-bs4.min.js"></script>
         <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
         <script src="<?php echo base_url(); ?>/assets/js/app.min.js"></script>
@@ -250,11 +250,12 @@
                 // Comment Show
                 function showComment() {
                     $.ajax({
-                        url: '<?php echo base_url("guru/forum/showComment/".$forum['id']); ?>',
+                        url: '<?php echo base_url("siswa/forum/showComment/".$forumMapel['id']); ?>',
                         type: 'GET',
                         async: true,
                         dataType: 'JSON',
                         success: (res) => {
+                            console.log(res);
                             var html = '';
                             var count = 1;
                             var i;
@@ -302,7 +303,7 @@
                 $('.comment').on('click', '#edit', function() {
                     let id = $(this).data('id');
                     $.ajax({
-                        url: "<?php echo base_url("guru/forum/detailComment/"); ?>"+id,
+                        url: "<?php echo base_url("siswa/forum/detailComment/"); ?>"+id,
                         dataType: 'JSON',
                         success: (res) => {
                             $("#modal-edit").modal("show");
@@ -336,7 +337,7 @@
                     let id = $(this).data('id');
                     // alert(id);
                     $.ajax({
-                        url: "<?php echo base_url("guru/forum/detailBalasComment/"); ?>"+id,
+                        url: "<?php echo base_url("siswa/forum/detailBalasComment/"); ?>"+id,
                         dataType: 'JSON',
                         success: (res) => {
                             $("#modal-reply").modal("show");

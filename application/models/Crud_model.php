@@ -10,11 +10,12 @@ class Crud_model extends CI_Model {
                         ->get();
     }
 
-    public function get_where($select, $table, $where)
+    public function get_where($select, $table, $where, $order = false)
     {
         return $this->db->select($select)
                         ->from($table)
                         ->where($where)
+                        ->order_by($order)
                         ->get();
     }
 
