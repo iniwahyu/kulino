@@ -133,6 +133,77 @@ class Forum extends CI_Controller {
         }
     }
 
+    public function materi($idForum)
+    {
+        $data = [
+            'title'     => 'Tambah Materi',
+            'web'       => $this->web,
+            'idForum'   => $idForum,
+        ];
+        $this->load->view("$this->web/materi", $data);
+    }
+
+    public function materiStore($idForum)
+    {
+        // Config
+        $post           = $this->input->post();
+        // Config
+
+         // Config Upload
+         $config     = [
+            'upload_path'       => './assets/upload/materi/',
+            'allowed_types'     => 'jpg|jpeg|png|pdf',
+            'max_size'          => 2048,
+            'remove_space'      => true,
+            'encrypt_name'      => true,
+            'overwrite'         => true,
+        ];
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        // Conifg Upload
+
+        // Checking
+        $checkForumMapel    = $this->crud->get_where('*', 'forum_mapel', ['id_forum' => $idForum, 'pertemuan' => $post['pertemuan']]);
+        // Checking
+
+        if($checkForumMapel->num_rows() == 0)
+        {
+            if($this->upload->do_upload('berkas'))
+            {
+                $filename = $this->upload->data('file_name');
+                $dataForm = [
+                    'id_forum'          => $idForum,
+                    'pertemuan'         => $post['pertemuan'],
+                    'judul'             => $post['judul'],
+                    'deskripsi'         => $post['deskripsi'],
+                    'berkas'            => $filename,
+                ];
+                $this->crud->insert('forum_mapel', $dataForm);
+                $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Materi');
+                redirect(base_url("$this->web/detail/".$idForum));
+            }
+            else
+            {
+                $filename = '';
+                $dataForm = [
+                    'id_forum'          => $idForum,
+                    'pertemuan'         => $post['pertemuan'],
+                    'judul'             => $post['judul'],
+                    'deskripsi'         => $post['deskripsi'],
+                    'berkas'            => $filename,
+                ];
+                $this->crud->insert('forum_mapel', $dataForm);
+                $this->session->set_flashdata('sukses', 'Berhasil Menambahkan Materi');
+                redirect(base_url("$this->web/detail/".$idForum));
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('gagal', 'Pertemuan Sudah Ditambahkan');
+            redirect(base_url("$this->web/materi/".$idForum));
+        }
+    }
+
     public function diskusi($idForumMapel)
     {
         // Checking

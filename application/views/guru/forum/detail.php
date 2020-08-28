@@ -72,7 +72,7 @@
                                     <div class="card-header d-flex mb-0">
                                         <h4 class="card-title mt-1 mb-0">Daftar Materi</h4>
                                         <div class="ml-auto">
-                                            <a href="<?php echo base_url('guru/fmapel/create/'.$forum['id']); ?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Materi</a>
+                                            <a href="<?php echo base_url('guru/forum/materi/'.$forum['id']); ?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Materi</a>
                                         </div>
                                     </div>
                                     <div class="card-body">
