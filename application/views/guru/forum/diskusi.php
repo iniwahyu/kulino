@@ -75,7 +75,7 @@
                                         </div>
                                         <div>
                                             <h5 class="bg-light p-2">Berkas</h5>
-                                            <a href="<?php echo base_url("$web/berkas/".$forum['id']); ?>" class="btn btn-success"><i class="fa fa-download mr-1"></i> DOWNLOAD</a>
+                                            <a href="<?php echo base_url("$web/downloadMateri/".$forum['id']); ?>" class="btn btn-success"><i class="fa fa-download mr-1"></i> DOWNLOAD</a>
                                         </div>
                                     </div>
                                 </div>
@@ -84,6 +84,18 @@
 
                             <!-- COL -->
                             <div class="col-xl-8 col-lg-8 col-md-6">
+                                <?php if($this->session->flashdata('sukses')): ?>
+                                <div class="alert alert-success bg-success text-white border-0" role="alert">
+                                    <?php echo $this->session->flashdata('sukses'); ?>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if($this->session->flashdata('gagal')): ?>
+                                <div class="alert alert-danger bg-danger text-white border-0" role="alert">
+                                    <?php echo $this->session->flashdata('gagal') ?>
+                                </div>
+                                <?php endif; ?>
+
                                 <!-- FORM -->
                                 <div class="card-box">
                                     <form action="<?php echo base_url("$web/comment/".$forum['id']); ?>" class="form" id="formComment" method="post" enctype="multipart/form-data">
@@ -264,11 +276,16 @@
                                                 '<div class="media-body">'+
                                                     '<small class="float-right">'+res[i].created_at+'</small>'+
                                                     '<h6 class="mb-2 font-14">'+res[i].pengguna+'<span class="btn btn-sm btn-primary waves-effect waves-light btn-rounded ml-2">'+res[i].level+'</span></h6>'+
-                                                    '<p>'+res[i].comment+'</p>'+
-                                                    '<div class="mt-1">'+
-                                                        '<button class="btn btn-primary mr-2 reply" data-id="'+res[i].id+'"><i class="mdi mdi-reply mr-1"></i> Reply</button>'+
-                                                        '<button class="btn btn-warning edit" id="edit" data-id="'+res[i].id+'"><i class="fa fa-edit ml-1"></i> Edit</button>'+
-                                                    '</div>'+
+                                                    '<p>'+res[i].comment+'</p>';
+                                                    if(res[i].berkas != "") {
+                                                        html += '<a href="<?php echo base_url("$web/downloadBerkasDiskusi/"); ?>'+res[i].id+'" class="btn btn-success btn-sm btn-rounded mt-2 mb-2"><i class="fa fa-download mr-1"></i> Download Berkas</a>';
+                                                    }
+                                            html += '<div class="mt-1">'+
+                                                        '<button class="btn btn-primary mr-2 reply" data-id="'+res[i].id+'"><i class="mdi mdi-reply mr-1"></i> Reply</button>';
+                                                        if(res[i].id_user == <?php echo $this->session->userdata('id') ?>){
+                                                            html += '<button class="btn btn-warning edit" id="edit" data-id="'+res[i].id+'"><i class="fa fa-edit ml-1"></i> Edit</button>';
+                                                        }
+                                            html+=    '</div>'+
                                                 '</div>'+
                                             '</div>'+
                                         '</div>';
