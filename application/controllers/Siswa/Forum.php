@@ -123,6 +123,7 @@ class Forum extends CI_Controller {
             $data   = [
                 'title'         => 'Forum Diskusi',
                 'web'           => $this->web,
+                'idForumMapel'  => $idForumMapel,
                 'forumMapel'    => $forumMapel,
             ];
             $this->load->view("$this->web/diskusi", $data);

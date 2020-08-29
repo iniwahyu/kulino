@@ -43,6 +43,13 @@
                     <!-- Start Content-->
                     <div class="container-fluid mt-3">
                         <div class="row mb-3">
+                            <div class="d-flex">
+                                <a href="<?php echo base_url("$web/detail/".$idForumMapel) ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
+                                    <i class="fa fa-arrow-left"></i> Kembali
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <!-- COL -->
                             <div class="col-xl-4 col-lg-4 col-md-6">
                                 <div class="card-box">

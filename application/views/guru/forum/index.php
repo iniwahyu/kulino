@@ -87,12 +87,12 @@
                                     <!-- Task info-->
                                     <p class="mb-1">
                                         <span class="pr-2 text-nowrap mb-2 d-inline-block">
-                                            <i class="mdi mdi-format-list-bulleted-type text-muted"></i>
-                                            <b>5</b> Materi
+                                            <i class="fa fa-list text-muted"></i>
+                                            <b><?php echo $this->crud->get_where('*', 'forum_mapel', ['id_forum' => $forums['id']])->num_rows(); ?></b> Materi
                                         </span>
                                         <span class="text-nowrap mb-2 d-inline-block">
-                                            <i class="mdi mdi-comment-multiple-outline text-muted"></i>
-                                            <b>10</b> Peserta
+                                            <i class="fa fa-users text-muted"></i>
+                                            <b><?php echo $this->crud->get_where('*', 'forum_anggota', ['id_forum' => $forums['id']])->num_rows(); ?></b> Peserta
                                         </span>
                                     </p>
 
