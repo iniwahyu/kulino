@@ -265,8 +265,11 @@
                                                 '<div class="media-body">'+
                                                     '<small class="float-right">'+res[i].created_at+'</small>'+
                                                     '<h6 class="mb-2 font-14">'+res[i].pengguna+'<span class="btn btn-sm btn-primary waves-effect waves-light btn-rounded ml-2">'+res[i].level+'</span></h6>'+
-                                                    '<p>'+res[i].comment+'</p>'+
-                                                    '<div class="mt-1">'+
+                                                    '<p>'+res[i].comment+'</p>';
+                                                    if(res[i].berkas != "") {
+                                                        html += '<a href="<?php echo base_url("$web/downloadBerkasDiskusi/"); ?>'+res[i].id+'" class="btn btn-success btn-sm btn-rounded mt-2 mb-2"><i class="fa fa-download mr-1"></i> Download Berkas</a>';
+                                                    }
+                                            html += '<div class="mt-1">'+
                                                         '<button class="btn btn-primary mr-2 reply" data-id="'+res[i].id+'"><i class="mdi mdi-reply mr-1"></i> Reply</button>';
                                                         if(res[i].id_user == <?php echo $this->session->userdata('id') ?>){
                                                             html += '<button class="btn btn-warning edit" id="edit" data-id="'+res[i].id+'"><i class="fa fa-edit ml-1"></i> Edit</button>';

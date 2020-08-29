@@ -363,4 +363,68 @@ class Forum extends CI_Controller {
             $pusher->trigger('my-channel', 'my-event', $data);
         }
     }
+
+    // Function Download
+    public function downloadMateri($idForumMapel)
+    {
+        $this->load->helper('download');
+        // Checking
+        $checkForumMapel = $this->crud->get_where('*', 'forum_mapel', ['id' => $idForumMapel]);
+        // Checking
+
+        if($checkForumMapel->num_rows() > 0)
+        {
+            $data   = $checkForumMapel->row_array();
+            $path   = FCPATH . '/assets/upload/materi/'.$data['berkas'];
+            // print_r($path);
+            $haaa = file_get_contents($path);
+            if($haaa)
+            {
+                force_download($path, null);
+                $this->session->set_flashdata('sukses', 'Berhasil Download');
+                redirect(base_url("$this->web/diskusi/".$idForumMapel));
+            }
+            else
+            {
+                $this->session->set_flashdata('gagal', 'Berkas Tidak Ditemukan');
+                redirect(base_url("$this->web/diskusi/".$idForumMapel));
+            }
+        }
+        else
+        {
+            echo "Hi";
+        }
+    }
+
+    public function downloadBerkasDiskusi($idForumDiskusi)
+    {
+        $this->load->helper('download');
+        // Checking
+        $checkBerkas = $this->crud->get_where('*', 'forum_diskusi', ['id' => $idForumDiskusi]);
+        // Checking
+
+        if($checkBerkas->num_rows() > 0)
+        {
+            $data   = $checkBerkas->row_array();
+            $path   = FCPATH . '/assets/upload/diskusi/'.$data['berkas'];
+            // print_r($path);
+            $haaa = file_get_contents($path);
+            if($haaa)
+            {
+                force_download($path, null);
+                $this->session->set_flashdata('sukses', 'Berhasil Download');
+                // redirect(base_url("$this->web/diskusi/".$idForumMapel));
+            }
+            else
+            {
+                $this->session->set_flashdata('gagal', 'Berkas Tidak Ditemukan');
+                // redirect(base_url("$this->web/diskusi/".$idForumMapel));
+            }
+        }
+        else
+        {
+            echo "Hi";
+        }
+    }
+    // Function Download
 }
