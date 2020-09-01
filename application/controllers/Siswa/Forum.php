@@ -125,7 +125,11 @@ class Forum extends CI_Controller {
                 'web'           => $this->web,
                 'idForumMapel'  => $idForumMapel,
                 'forumMapel'    => $forumMapel,
+                'fmapel'        => $dataForumMapel
             ];
+            // echo "<pre>";
+            // print_r($data);
+            // echo "</pre>"; die;
             $this->load->view("$this->web/diskusi", $data);
         }
         else

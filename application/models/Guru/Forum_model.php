@@ -3,13 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Forum_model extends CI_Model {
 
-    public function getForum($idGuru)
+    public function getForum($idForum)
     {
         return $this->db->select('f.id, mm.nama, f.deskripsi, mm.kelas, f.kode, p.nama AS guru')
                         ->from('forum AS f')
                         ->join('master_mapel AS mm', 'mm.id = f.id_mapel')
                         ->join('pengguna AS p', 'p.id_user = f.id_guru')
-                        ->where('f.id_guru', $idGuru)
+                        ->where('f.id', $idForum)
+                        ->get();
+    }
+
+    public function getForumByIdUser($idUser)
+    {
+        return $this->db->select('f.id, mm.nama, f.deskripsi, mm.kelas, f.kode, p.nama AS guru')
+                        ->from('forum AS f')
+                        ->join('master_mapel AS mm', 'mm.id = f.id_mapel')
+                        ->join('pengguna AS p', 'p.id_user = f.id_guru')
+                        ->where('f.id_guru', $idUser)
                         ->get();
     }
 

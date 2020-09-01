@@ -8,17 +8,17 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<?php echo base_url(); ?>/assets/images/favicon.ico">
 
 		<!-- App css -->
-		<link href="../assets/css/bootstrap-material.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
-		<link href="../assets/css/app-material.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
+		<link href="<?php echo base_url(); ?>/assets/css/bootstrap-material.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+		<link href="<?php echo base_url(); ?>/assets/css/app-material.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
 
-		<link href="../assets/css/bootstrap-material-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled />
-		<link href="../assets/css/app-material-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet"  disabled />
+		<link href="<?php echo base_url(); ?>/assets/css/bootstrap-material-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled />
+		<link href="<?php echo base_url(); ?>/assets/css/app-material-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet"  disabled />
 
 		<!-- icons -->
-		<link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo base_url(); ?>/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -36,13 +36,13 @@
                                     <div class="auth-logo">
                                         <a href="index.html" class="logo logo-dark text-center">
                                             <span class="logo-lg">
-                                                <!-- <img src="../assets/images/logo-dark.png" alt="" height="22"> -->
+                                                <!-- <img src="<?php echo base_url(); ?>/assets/images/logo-dark.png" alt="" height="22"> -->
                                             </span>
                                         </a>
                     
                                         <a href="index.html" class="logo logo-light text-center">
                                             <span class="logo-lg">
-                                                <!-- <img src="../assets/images/logo-light.png" alt="" height="22"> -->
+                                                <!-- <img src="<?php echo base_url(); ?>/assets/images/logo-light.png" alt="" height="22"> -->
                                             </span>
                                         </a>
                                     </div>
@@ -102,10 +102,10 @@
         </footer>
 
         <!-- Vendor js -->
-        <script src="../assets/js/vendor.min.js"></script>
+        <script src="<?php echo base_url(); ?>/assets/js/vendor.min.js"></script>
 
         <!-- App js -->
-        <script src="../assets/js/app.min.js"></script>
+        <script src="<?php echo base_url(); ?>/assets/js/app.min.js"></script>
         
     </body>
 </html>

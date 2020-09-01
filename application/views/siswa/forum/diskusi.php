@@ -44,7 +44,7 @@
                     <div class="container-fluid mt-3">
                         <div class="row mb-3">
                             <div class="d-flex">
-                                <a href="<?php echo base_url("$web/detail/".$idForumMapel) ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
+                                <a href="<?php echo base_url("$web/detail/".$fmapel['id_forum']) ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
                                     <i class="fa fa-arrow-left"></i> Kembali
                                 </a>
                             </div>
@@ -82,7 +82,7 @@
                                         </div>
                                         <div>
                                             <h5 class="bg-light p-2">Berkas</h5>
-                                            <a href="<?php echo base_url("$web/berkas/".$forumMapel['id']); ?>" class="btn btn-success"><i class="fa fa-download mr-1"></i> DOWNLOAD</a>
+                                            <a href="<?php echo base_url("$web/downloadMateri/".$forumMapel['id']); ?>" class="btn btn-success"><i class="fa fa-download mr-1"></i> DOWNLOAD</a>
                                         </div>
                                     </div>
                                 </div>
@@ -91,6 +91,18 @@
 
                             <!-- COL -->
                             <div class="col-xl-8 col-lg-8 col-md-6">
+                                <?php if($this->session->flashdata('sukses')): ?>
+                                <div class="alert alert-success bg-success text-white border-0" role="alert">
+                                    <?php echo $this->session->flashdata('sukses'); ?>
+                                </div>
+                                <?php endif; ?>
+
+                                <?php if($this->session->flashdata('gagal')): ?>
+                                <div class="alert alert-danger bg-danger text-white border-0" role="alert">
+                                    <?php echo $this->session->flashdata('gagal') ?>
+                                </div>
+                                <?php endif; ?>
+                                
                                 <!-- FORM -->
                                 <div class="card-box">
                                     <form action="<?php echo base_url("$web/comment/".$forumMapel['id']); ?>" class="form" id="formComment" method="post" enctype="multipart/form-data">

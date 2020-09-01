@@ -21,7 +21,7 @@ class Forum extends CI_Controller {
         $idGuru         = $this->session->userdata('id');
         // Config
 
-        $forum  = $this->forum->getForum($idGuru)->result_array();
+        $forum  = $this->forum->getForumByIdUser($idGuru)->result_array();
         $data = [
             'title'         => 'Forum',
             'web'           => $this->web,
@@ -115,7 +115,8 @@ class Forum extends CI_Controller {
 
         if($checkForum->num_rows() > 0)
         {
-            $forum              = $this->forum->getForum($idGuru)->row_array();
+            $forum              = $this->forum->getForum($id)->row_array();
+            // print_r($forum);
             $forumMapel         = $this->forum->getForumMapel($id, $idGuru)->result_array();
             $data = [
                 'title'         => 'Forum',
