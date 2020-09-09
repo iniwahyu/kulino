@@ -83,6 +83,24 @@ class Auth extends CI_Controller {
         }
     }
 
+    public function guruLogin()
+    {
+        $data = [
+            'title'         => 'Login Guru',
+            'web'           => $this->web,
+        ];
+        $this->load->view("$this->web/guruLogin", $data);
+    }
+
+    public function siswaLogin()
+    {
+        $data = [
+            'title'         => 'Login Siswa',
+            'web'           => $this->web,
+        ];
+        $this->load->view("$this->web/siswaLogin", $data);
+    }
+
     public function logout()
     {
         $this->session->sess_destroy();

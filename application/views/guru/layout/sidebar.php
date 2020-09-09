@@ -15,20 +15,6 @@
     </li>
 
     <li>
-        <a href="<?php echo base_url('guru/kuis'); ?>">
-            <i class="fa fa-question-circle"></i>
-            <span> Kuis Online </span>
-        </a>
-    </li>
-
-    <li>
-        <a href="<?php echo base_url('guru/tugas'); ?>">
-            <i class="fa fa-tasks"></i>
-            <span> Materi/Tugas </span>
-        </a>
-    </li>
-
-    <li>
         <a href="<?php echo base_url('guru/raport'); ?>">
             <i class="fa fa-user-graduate"></i>
             <span> Raport </span>

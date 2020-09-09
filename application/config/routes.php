@@ -6,6 +6,9 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'auth/login';
+$route['guru/login'] = 'auth/guruLogin';
+$route['siswa/login'] = 'auth/siswaLogin';
+$route['logout']    = 'auth/logout';
 
 // Admin
 $route['admin'] = 'admin/dashboard';
