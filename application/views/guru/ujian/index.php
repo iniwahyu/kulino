@@ -56,7 +56,7 @@
                                                     <th>Nama</th>
                                                     <th>UTS</th>
                                                     <th>UAS</th>
-                                                    <th>Keterangan</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -64,85 +64,113 @@
                                                     <td>Tiger Nixon</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Garrett Winters</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Ashton Cox</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cedric Kelly</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Airi Satou</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Brielle Williamson</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Herrod Chandler</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Rhona Davidson</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Colleen Hurst</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Sonya Frost</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Jena Gaines</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Quinn Flynn</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Charde Marshall</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Haley Kennedy</td>
                                                     <td><?php echo rand(70, 95); ?></td>
                                                     <td><?php echo rand(70, 95); ?></td>
-                                                    <td>Lulus</td>
+                                                    <td>
+                                                        <a href="<?php echo base_url("$web/edit/1"); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
