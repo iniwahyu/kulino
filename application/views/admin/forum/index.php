@@ -36,7 +36,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <div class="mb-3">
-                                <a href="<?php echo base_url("$web/create"); ?>" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah Data</a>
+                                <!-- <a href="<?php echo base_url("$web/create"); ?>" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah Data</a> -->
                             </div>
 
                             <?php if($this->session->flashdata('sukses')): ?>
@@ -60,22 +60,29 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Username (NIS/NUPTK)</th>
-                                                <th>Tingkatan</th>
+                                                <th>Mapel</th>
+                                                <th>Guru</th>
+                                                <th>Jumlah Siswa</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i=1; foreach($user as $users): ?>
+                                            <?php $i=1; foreach($forum as $forums): ?>
                                             <tr>
                                                 <td><?php echo $i++; ?></td>
-                                                <td><?php echo $users['username']; ?></td>
-                                                <td><?php echo $users['level']; ?></td>
+                                                <td><?php echo $forums['mapel']; ?></td>
+                                                <td><?php echo $forums['guru']; ?></td>
                                                 <td>
-                                                    <a href="<?php echo base_url("$web/edit/".$users['id']); ?>" class="btn btn-info btn-rounded waves-effect waves-light">
-                                                        <span class="btn-label"><i class="fa fa-edit"></i></span> Edit
+                                                    <?php 
+                                                    $jumlahSiswa    = $this->crud->get_where('*', 'forum_anggota', ['id_forum' => $forums['id']])->num_rows();
+                                                    echo $jumlahSiswa;
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <a href="<?php echo base_url("$web/detail/".$forums['id']); ?>" class="btn btn-info btn-rounded waves-effect waves-light">
+                                                        <span class="btn-label"><i class="fa fa-info"></i></span> Detail
                                                     </a>
-                                                    <a href="<?php echo base_url("$web/delete/".$users['id']); ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
+                                                    <a href="<?php echo base_url("$web/delete/".$forums['id']); ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
                                                         <span class="btn-label"><i class="fa fa-trash-alt"></i></span> Hapus
                                                     </a>
                                                 </td>

@@ -34,54 +34,54 @@
                 <!-- Start Content-->
                 <div class="container-fluid mt-3">
                     <div class="row mb-3">
+                        <div class="col-lg-2">
+                            <a href="<?php echo base_url("$web"); ?>" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Kembali</a>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <div class="col">
-                            <div class="mb-3">
-                                <a href="<?php echo base_url("$web/create"); ?>" class="btn btn-warning"><i class="fa fa-plus"></i> Tambah Data</a>
-                            </div>
-
-                            <?php if($this->session->flashdata('sukses')): ?>
-                            <div class="alert alert-success bg-success text-white border-0" role="alert">
-                                <?php echo $this->session->flashdata('sukses'); ?>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if($this->session->flashdata('gagal')): ?>
-                            <div class="alert alert-danger bg-danger text-white border-0" role="alert">
-                                <?php echo $this->session->flashdata('gagal') ?>
-                            </div>
-                            <?php endif; ?>
-                            
                             <div class="card">
                                 <div class="card-header bg-blue py-3">
                                     <h5 class="card-title mb-0 text-white"><?php echo $title; ?></h5>
                                 </div>
                                 <div class="card-body table-responsive">
-                                    <table class="table dt-responsive nowrap w-100" id="datatable">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Username (NIS/NUPTK)</th>
-                                                <th>Tingkatan</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i=1; foreach($user as $users): ?>
-                                            <tr>
-                                                <td><?php echo $i++; ?></td>
-                                                <td><?php echo $users['username']; ?></td>
-                                                <td><?php echo $users['level']; ?></td>
-                                                <td>
-                                                    <a href="<?php echo base_url("$web/edit/".$users['id']); ?>" class="btn btn-info btn-rounded waves-effect waves-light">
-                                                        <span class="btn-label"><i class="fa fa-edit"></i></span> Edit
-                                                    </a>
-                                                    <a href="<?php echo base_url("$web/delete/".$users['id']); ?>" class="btn btn-danger btn-rounded waves-effect waves-light">
-                                                        <span class="btn-label"><i class="fa fa-trash-alt"></i></span> Hapus
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Forum</th>
+                                            <td><?php echo $forum['mapel']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Deskripsi</th>
+                                            <td><?php echo $forum['deskripsi']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Guru/Pengajar</th>
+                                            <td><?php echo $forum['pengajar']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Kode Forum</th>
+                                            <td><?php echo $forum['kode']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mata Pelajaran</th>
+                                            <td>
+                                                <?php 
+                                                foreach($mapel as $m):
+                                                    echo '<li>'.$m['pertemuan'].". ".$m['judul'].'</li>';
+                                                endforeach;
+                                                ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Siswa</th>
+                                            <td>
+                                                <?php 
+                                                foreach($siswa as $s):
+                                                    echo '<li>'.$s['nama'].'</li>';
+                                                endforeach;
+                                                ?>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>

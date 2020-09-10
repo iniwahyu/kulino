@@ -23,8 +23,15 @@
 
     <li>
         <a href="<?php echo base_url("admin/mapel"); ?>">
-            <i class="fa fa-users"></i>
+            <i class="fa fa-book"></i>
             <span> Mata Pelajaran </span>
+        </a>
+    </li>
+
+    <li>
+        <a href="<?php echo base_url("admin/forum"); ?>">
+            <i class="fa fa-comments"></i>
+            <span> Forum </span>
         </a>
     </li>
 

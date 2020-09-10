@@ -1,27 +1,41 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class Forum extends CI_Controller {
 
-    private $web        = "admin/user";
+    private $web        = "admin/forum";
     private $webCus     = '';
-    private $table      = 'users';
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('admin/User_model', 'user');
+        $this->load->model('admin/Forum_model', 'forum');
     }
 
 	public function index()
 	{
-        $user               = $this->user->getUserWithLevel()->result_array();
+        $forum              = $this->forum->getForumAll()->result_array();
         $data = [
-            'title'         => 'Data User',
+            'title'         => 'Data Forum',
             'web'           => $this->web,
-            'user'          => $user,
+            'forum'         => $forum,
         ];
         $this->load->view("$this->web/index", $data);
+    }
+
+    public function detail($id)
+    {
+        $forum              = $this->forum->getForumAllWhere($id)->row_array();
+        $mapel              = $this->crud->get_where('*', 'forum_mapel', ['id_forum' => $id], 'pertemuan ASC')->result_array();
+        $siswa              = $this->forum->getSiswaByForum($id)->result_array();
+        $data = [
+            'title'         => 'Forum Detail',
+            'web'           => $this->web,
+            'forum'         => $forum,
+            'mapel'         => $mapel,
+            'siswa'         => $siswa,
+        ];
+        $this->load->view("$this->web/detail", $data);
     }
     
     public function create()
@@ -108,10 +122,5 @@ class User extends CI_Controller {
         $this->crud->delete($this->table, ['id' => $id]);
         $this->session->set_flashdata('sukses', 'Berhasil Menghapus Data');
         redirect(base_url("$this->web"));
-    }
-
-    public function detail($id)
-    {
-
     }
 }
